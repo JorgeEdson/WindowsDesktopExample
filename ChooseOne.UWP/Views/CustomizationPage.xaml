@@ -1,0 +1,225 @@
+﻿<Page
+    x:Class="ChooseOne.UWP.Views.CustomizationPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ChooseOne.UWP.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    mc:Ignorable="d"
+    xmlns:prism="using:Prism.Windows.Mvvm"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Loaded="Page_Loaded">
+
+    <Grid x:Name="MainGrid" Margin="50">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="CUSTOMIZATION" FontSize="50" HorizontalAlignment="Center" Margin="50"></TextBlock>
+        
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel x:Name="Form">
+                <ComboBox x:Name="ComponentCombo" 
+                      ItemsSource="{x:Bind ViewModel.ChooseComponentList, Mode=TwoWay}"
+                      SelectedItem="{x:Bind ViewModel.ChooseComponentSelectedItem, Mode=TwoWay}"
+                      Header="Choose a Component" 
+                      Margin="0 0 0 10"                      
+                      SelectionChanged="ComponentCombo_SelectionChanged">                    
+                </ComboBox>
+                
+                <TextBox x:Name="NameTextBox" 
+                     Header="Name"
+                     Margin="0 0 0 10"
+                     Text="{x:Bind ViewModel.Name, Mode=TwoWay}"    />
+
+                <TextBox x:Name="ContentTextBox" 
+                     Header="Content/Text" 
+                     Margin="0 0 0 10"
+                     Text="{x:Bind ViewModel.Content, Mode=TwoWay}"/>
+
+                <Grid x:Name="DialogButtons"
+                      Visibility="Collapsed">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox x:Name="DialogButton1TextBox" 
+                     Header="Content Dialog Button 1" 
+                     Margin="0 0 10 10"
+                     Text="{x:Bind ViewModel.DialogButton1, Mode=TwoWay}"/>
+
+                    <TextBox x:Name="DialogButton2TextBox" 
+                     Grid.Column="1"
+                     Header="Content Dialog Button 2" 
+                     Margin="0 0 10 10"
+                     Text="{x:Bind ViewModel.DialogButton2, Mode=TwoWay}"/>
+
+                    <TextBox x:Name="DialogButton3TextBox" 
+                     Grid.Column="2"
+                     Header="Content Dialog Button 3" 
+                     Margin="0 0 0 10"
+                     Text="{x:Bind ViewModel.DialogButton3, Mode=TwoWay}"/>
+                </Grid>
+
+                <Grid x:Name="Colors">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <ComboBox x:Name="BackgroundColorCombo" 
+                      Header="Background Color" 
+                      Margin="0 0 0 10"
+                      ItemsSource="{x:Bind ViewModel.ListColors, Mode=TwoWay}"                      
+                      SelectedItem="{x:Bind ViewModel.BackgroundColorSelectedItem, Mode=TwoWay}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <ComboBox x:Name="ForegroundColorCombo"
+                          Grid.Column="1"
+                          Header="Foreground Color" 
+                          Margin="0 0 0 10"
+                          ItemsSource="{x:Bind ViewModel.ListColors, Mode=TwoWay}"
+                          SelectedItem="{x:Bind ViewModel.ForegroundColorSelectedItem, Mode=TwoWay}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </Grid>
+
+                <Grid x:Name="Sizes">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox x:Name="FontSizeTextBox"
+                     Header="Font Size" 
+                     Margin="0 0 10 10"
+                     BeforeTextChanging="OnlyNumbers"
+                     Text="{x:Bind ViewModel.FontSize, Mode=TwoWay}"/>
+
+                    <TextBox x:Name="HeightTextBox"
+                     Grid.Column="1"
+                     Header="Heigt" 
+                     Margin="0 0 10 10"
+                     BeforeTextChanging="OnlyNumbers"
+                     Text="{x:Bind ViewModel.Height, Mode=TwoWay}"/>
+
+                    <TextBox x:Name="WidthTextBox"
+                     Grid.Column="2"
+                     Header="Width" 
+                     Margin="0 0 10 10"
+                     BeforeTextChanging="OnlyNumbers"
+                     Text="{x:Bind ViewModel.Width, Mode=TwoWay}"/>
+
+                    <TextBox x:Name="CornerRadiusTextBox"
+                     Grid.Column="3"
+                     Header="Corner Radius" 
+                     Margin="0 0 10 10"
+                     BeforeTextChanging="OnlyNumbers"
+                     Text="{x:Bind ViewModel.CornerRadius, Mode=TwoWay}"/>
+
+                    <TextBox x:Name="MinValueTextBox"                      
+                             Grid.Column="4"
+                             Header="Min Value" 
+                             Margin="0 0 10 10"
+                             BeforeTextChanging="OnlyNumbers"
+                             Text="{x:Bind ViewModel.MinValue, Mode=TwoWay}"/>
+
+                    <TextBox x:Name="MaxValueTextBox"
+                             Grid.Column="5"
+                             Header="Max Value" 
+                             Margin="0 0 0 10"
+                             BeforeTextChanging="OnlyNumbers"
+                             Text="{x:Bind ViewModel.MaxValue, Mode=TwoWay}"/>
+                </Grid>
+
+                <Grid x:Name="Buttons">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button x:Name="CreateButton" 
+                            Content="Save"
+                            Width="75"
+                            Command="{x:Bind ViewModel.AddCustomizationCommand}"/>
+
+                    <Button x:Name="DeleteButton"
+                            Grid.Column="1"
+                            Width="75"
+                            Content="Delete"
+                            Command="{x:Bind ViewModel.DeleteCustomizationCommand}"/>
+
+                    <Button x:Name="ClearButton" 
+                            Grid.Column="2"
+                            Width="75"
+                            Content="Clear"
+                            Command="{x:Bind ViewModel.ClearCommand}"/>
+
+                    <Button x:Name="ViewCodeButton" 
+                            Grid.Column="3"
+                            Width="75"
+                            Content="View"
+                            Command="{x:Bind ViewModel.ViewCodeCommand}"
+                            />
+
+                    <Button x:Name="CloseButton" 
+                            Grid.Column="4"
+                            Width="75"
+                            Content="Close"
+                            Command="{x:Bind ViewModel.CloseCommand}"/>
+                </Grid>
+            </StackPanel>
+
+            <StackPanel x:Name="ComponentViwer"                     
+                    Grid.Column="1"                     
+                    Margin="50 0 0 0"
+                    BorderBrush="White"
+                    BorderThickness="1">
+                <ItemsControl ItemsSource="{x:Bind ViewModel.ListToRender, Mode=TwoWay}"  />
+            </StackPanel>
+        </Grid>
+
+        <ScrollViewer x:Name="ComponentViwerXAML"
+                              Grid.Row="2"
+                      Margin="100"
+                      BorderBrush="White"
+                      BorderThickness="1">
+            <StackPanel>
+                <ContentPresenter x:Name="XamlPresenter" Content="{x:Bind ViewModel.CodeXaml, Mode=TwoWay}"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>
